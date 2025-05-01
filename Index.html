@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banco de Sugerencias - Personería</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff;
+      color: #000;
+      margin: 0;
+      padding: 2rem;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    section {
+      margin-top: 2rem;
+    }
+    .item {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background-color: #f4f4f4;
+    }
+    .label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Banco de Sugerencias</h1>
+
+  <section id="sugerencias">
+    <h2>Sugerencias Académicas</h2>
+    <div id="contenedor-sugerencias"></div>
+  </section>
+
+  <section id="peliculas">
+    <h2>Recomendaciones de Películas</h2>
+    <div id="contenedor-peliculas"></div>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwTTgyzYXKzqKTvfiznb_TWQw69-Rnpv8",
+      authDomain: "banco-sugerencias.firebaseapp.com",
+      databaseURL: "https://banco-sugerencias-default-rtdb.firebaseio.com",
+      projectId: "banco-sugerencias",
+      storageBucket: "banco-sugerencias.firebasestorage.app",
+      messagingSenderId: "966424096918",
+      appId: "1:966424096918:web:d8a9215536b85bded812b7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const contenedorSugerencias = document.getElementById("contenedor-sugerencias");
+    const contenedorPeliculas = document.getElementById("contenedor-peliculas");
+
+    function mostrarItem(contenedor, datos, campos) {
+      const div = document.createElement("div");
+      div.className = "item";
+      campos.forEach(campo => {
+        const p = document.createElement("p");
+        p.innerHTML = `<span class="label">${campo}:</span> ${datos[campo] || "No especificado"}`;
+        div.appendChild(p);
+      });
+      contenedor.appendChild(div);
+    }
+
+    onValue(ref(db, 'sugerencias'), (snapshot) => {
+      contenedorSugerencias.innerHTML = "";
+      snapshot.forEach(child => {
+        mostrarItem(contenedorSugerencias, child.val(), ["tema", "mensaje"]);
+      });
+    });
+
+    onValue(ref(db, 'peliculas'), (snapshot) => {
+      contenedorPeliculas.innerHTML = "";
+      snapshot.forEach(child => {
+        mostrarItem(contenedorPeliculas, child.val(), ["titulo", "genero", "motivo"]);
+      });
+    });
+  </script>
+</body>
+</html>
