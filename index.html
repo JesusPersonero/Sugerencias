@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco de Sugerencias</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #000000;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    section {
+      padding: 2rem;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea, select, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    footer {
+      background-color: #000000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Banco de Sugerencias - Personería Estudiantil</h1>
+  </header>
+  <nav>
+    <a href="#sugerencias">Sugerencias Académicas</a>
+    <a href="#peliculas">Recomendación de Películas</a>
+  </nav>
+
+  <section id="sugerencias">
+    <h2>Sugerencia Académica Anónima</h2>
+    <form id="formSugerencia">
+      <label for="tema">Tema:</label>
+      <select id="tema" name="tema" required>
+        <option value="Académico">Académico</option>
+        <option value="Convivencia">Convivencia</option>
+        <option value="Otro">Otro</option>
+      </select>
+      <label for="mensaje">Escribe tu sugerencia:</label>
+      <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+      <button type="submit">Enviar Sugerencia</button>
+    </form>
+  </section>
+
+  <section id="peliculas">
+    <h2>Recomendar una Película</h2>
+    <form id="formPelicula">
+      <label for="titulo">Título de la película:</label>
+      <input type="text" id="titulo" name="titulo" required>
+      <label for="genero">Género:</label>
+      <input type="text" id="genero" name="genero" required>
+      <label for="motivo">¿Por qué la recomiendas?</label>
+      <textarea id="motivo" name="motivo" rows="4" required></textarea>
+      <button type="submit">Enviar Recomendación</button>
+    </form>
+  </section>
+
+  <footer>
+    Fundación Educativa Instituto Ecológico Barbacoas - Personería Estudiantil 2025
+  </footer>
+
+  <script>
+    document.getElementById("formSugerencia").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("¡Gracias por tu sugerencia anónima!");
+      this.reset();
+    });
+
+    document.getElementById("formPelicula").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("¡Gracias por tu recomendación de película!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
